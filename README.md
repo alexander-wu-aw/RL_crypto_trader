@@ -7,3 +7,7 @@ Please download the data for hourly bitcoin prices on Coinbase: https://drive.go
 Put this csv file in a folder named "data" in the main project directory.
 
 Then, run the Custom_RL.py file to see it work!
+
+The structure of my RL agent is:
+
+![](images/network_visualization.png)

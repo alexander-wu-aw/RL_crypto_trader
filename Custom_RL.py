@@ -311,6 +311,7 @@ memory = ReplayMemory(MEMORY_SIZE)
 state = env.reset()
 
 all_rewards = []
+all_losses = []
 
 for episode in range(NUM_EPISODES):
     
@@ -369,6 +370,9 @@ for episode in range(NUM_EPISODES):
         # Updates weights and loss using gradients calculated above
         optimizer.step()
 
+        all_losses.append(loss)
+
+
 
     # Check if we should update target net
     if episode % TARGET_NET_UPDATE_FREQ ==0:
@@ -384,8 +388,19 @@ for episode in range(NUM_EPISODES):
         print("Episode:",episode)
         # print("Loss:", loss)
         print("Reward:", reward)
-        plt.plot(list(range(0,episode+1)), all_rewards)
+        plt.subplot(2, 1, 1)
+        plt.plot(list(range(0,episode+1)), all_rewards, "b")
+        plt.xlabel('episode')
+        plt.ylabel('Reward')
         plt.pause(0.05)
+
+        if all_losses:
+            plt.subplot(2, 1, 2)
+            plt.plot(list(range(0,len(all_losses))), all_losses, "b")
+            plt.xlabel('episode')
+            plt.ylabel('Loss')
+            plt.pause(0.05)
+            
 
 
 trades = env.print_status()
